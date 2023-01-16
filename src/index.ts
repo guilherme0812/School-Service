@@ -1,5 +1,5 @@
-import express, { Request, Response } from 'express'
-import { AppDataSource } from './config/data-source'
+import express, { Response } from 'express'
+import { AppDataSource } from './data-source'
 
 AppDataSource.initialize().then(() => {
   const app = express()
