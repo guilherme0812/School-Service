@@ -1,14 +1,12 @@
-import express, { Response } from 'express'
+import express from 'express'
 import { AppDataSource } from './data-source'
+import { routes } from './routes'
 
 AppDataSource.initialize().then(() => {
   const app = express()
 
   app.use(express.json())
-
-  app.get('/', (_, res: Response) => {
-    res.send([{ message: 'Voce acessou o server' }])
-  })
+  app.use(routes)
 
   return app.listen(process.env.PORT || 3000, () => {
     console.log(`Server initialized! at port ${process.env.PORT || 3000}`)

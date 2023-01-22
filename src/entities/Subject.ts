@@ -3,25 +3,24 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { Video } from './Video'
+import { Room } from './Room'
 
-@Entity()
-export class Room {
+@Entity('subjects')
+export class Subject {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
   name: string
 
-  @Column({ nullable: true })
-  description: string
-
-  @OneToMany(() => Video, (video) => video.room)
-  videos: Video[]
+  @ManyToMany(() => Room)
+  @JoinTable()
+  rooms: Room[]
 
   @CreateDateColumn({ name: 'create_at' })
   createAt: string
