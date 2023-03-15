@@ -10,7 +10,7 @@ import {
 } from 'typeorm'
 import { Room } from './Room'
 
-@Entity('subjects')
+@Entity()
 export class Subject {
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -22,12 +22,12 @@ export class Subject {
   @JoinTable()
   rooms: Room[]
 
-  @CreateDateColumn({ name: 'create_at' })
+  @CreateDateColumn()
   createAt: string
 
-  @UpdateDateColumn({ name: 'update_at' })
+  @UpdateDateColumn()
   updateAt: string
 
-  @DeleteDateColumn({ name: 'delete_at' })
+  @DeleteDateColumn()
   deleteAt: string
 }

@@ -9,40 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Room = void 0;
+exports.Video = void 0;
 const typeorm_1 = require("typeorm");
-const Video_1 = require("./Video");
-let Room = class Room {
+const Room_1 = require("./Room");
+let Video = class Video {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], Room.prototype, "id", void 0);
+], Video.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Room.prototype, "name", void 0);
+], Video.prototype, "title", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Room.prototype, "description", void 0);
+], Video.prototype, "url", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Video_1.Video, (video) => video.room),
-    __metadata("design:type", Array)
-], Room.prototype, "videos", void 0);
-__decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: 'create_at' }),
-    __metadata("design:type", String)
-], Room.prototype, "createAt", void 0);
-__decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: 'update_at' }),
-    __metadata("design:type", String)
-], Room.prototype, "updateAt", void 0);
-__decorate([
-    (0, typeorm_1.DeleteDateColumn)({ name: 'delete_at' }),
-    __metadata("design:type", String)
-], Room.prototype, "deleteAt", void 0);
-Room = __decorate([
-    (0, typeorm_1.Entity)()
-], Room);
-exports.Room = Room;
+    (0, typeorm_1.ManyToOne)(() => Room_1.Room, (room) => room.videos),
+    (0, typeorm_1.JoinColumn)({ name: 'room_id' }),
+    __metadata("design:type", Room_1.Room)
+], Video.prototype, "room", void 0);
+Video = __decorate([
+    (0, typeorm_1.Entity)('videos')
+], Video);
+exports.Video = Video;
