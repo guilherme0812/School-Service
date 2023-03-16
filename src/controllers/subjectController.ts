@@ -18,13 +18,18 @@ subjectController.get(
   }
 )
 
-subjectController.get('/subject/:id', (req: Request, res: Response) => {
-  res.json({ message: req.params.id })
+subjectController.get('/subject/:id', async (req: Request, res: Response) => {
+  try {
+    const subject = await subjectServices.findOneOrFail({ id: '1' })
+    return subject
+  } catch (error) {
+    return res.status(400).json({ message: 'Erro na requisição' })
+  }
 })
 
 subjectController.post(
   '/subject',
-  (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     const { name } = req.body
 
     if (!name) {
@@ -32,7 +37,7 @@ subjectController.post(
     }
 
     try {
-      const subject = subjectServices.create(name)
+      const subject = await subjectServices.create(name)
       return res.status(201).json(subject)
     } catch (error) {
       next(Error)
