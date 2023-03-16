@@ -19,11 +19,20 @@ subjectController.get(
 )
 
 subjectController.get('/subject/:id', async (req: Request, res: Response) => {
+  const { id } = req.params
+  if (!id) {
+    return res
+      .status(400)
+      .json({ message: 'É necessário passar um id correto' })
+  }
+
   try {
-    const subject = await subjectServices.findOneOrFail({ id: '1' })
-    return subject
+    const subject = await subjectServices.findOneOrFail({
+      id: id,
+    })
+    return res.status(200).json(subject)
   } catch (error) {
-    return res.status(400).json({ message: 'Erro na requisição' })
+    return res.status(404).json({ message: 'Erro na requisição' })
   }
 })
 
