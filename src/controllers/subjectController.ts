@@ -54,4 +54,38 @@ subjectController.post(
   }
 )
 
+subjectController.put('/subject/:id', async (req: Request, res: Response) => {
+  const { id } = req.params
+  if (!id) {
+    return res
+      .status(400)
+      .json({ message: 'É necessário passar um id correto' })
+  }
+
+  try {
+    const user = await subjectServices.update(id, req.body)
+    return res.status(203).json(user)
+  } catch (error) {
+    return res.status(404).json({ message: 'Erro na requisição' })
+  }
+})
+
+subjectController.delete(
+  '/subject/:id',
+  async (req: Request, res: Response) => {
+    const { id } = req.params
+    if (!id) {
+      return res
+        .status(400)
+        .json({ message: 'É necessário passar um id correto' })
+    }
+
+    try {
+      const user = await subjectServices.delete(id)
+      return res.status(203).json(user)
+    } catch (error) {
+      return res.status(404).json({ message: 'Erro na requisição' })
+    }
+  }
+)
 export default subjectController

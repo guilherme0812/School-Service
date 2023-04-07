@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from 'express'
+import { Request, Response, Router } from 'express'
 import { AppDataSource } from '../data-source'
 import { Room } from '../entities/Room'
 
