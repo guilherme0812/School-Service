@@ -18,7 +18,7 @@ export class Subject {
   @Column()
   name: string
 
-  @ManyToMany(() => Room, (room) => room.subjects, { eager: true })
+  @ManyToMany(() => Room, (room) => room.subjects)
   @JoinTable()
   rooms: Room[]
 

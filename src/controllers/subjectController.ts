@@ -84,7 +84,7 @@ subjectController.delete(
       const user = await subjectServices.delete(id)
       return res.status(203).json(user)
     } catch (error) {
-      return res.status(404).json({ message: 'Erro na requisição' })
+      return res.status(400).json({ message: 'Erro na requisição' })
     }
   }
 )

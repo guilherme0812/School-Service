@@ -25,7 +25,7 @@ export class Room {
   @OneToMany(() => Video, (video) => video.room)
   videos: Video[]
 
-  @ManyToMany(() => Subject, (subject) => subject.rooms)
+  @ManyToMany(() => Subject, (subject) => subject.rooms, { eager: true })
   subjects: Subject[]
 
   @CreateDateColumn({ name: 'create_at' })

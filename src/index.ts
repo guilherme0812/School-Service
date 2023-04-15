@@ -1,5 +1,5 @@
 import express from 'express'
-import roomController from './controllers/RoomCOntroller'
+import roomController from './controllers/roomController'
 import subjectController from './controllers/subjectController'
 import { AppDataSource } from './data-source'
 
