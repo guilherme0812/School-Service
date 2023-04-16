@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
-import { Room } from './Room'
+import { Leason } from './Leason'
 
 @Entity('videos')
 export class Video {
@@ -18,7 +18,7 @@ export class Video {
   @Column()
   url: string
 
-  @ManyToOne(() => Room, (room) => room.videos)
+  @ManyToOne(() => Leason, (leason) => leason.videos)
   @JoinColumn({ name: 'room_id' })
-  room: Room
+  leason: Leason
 }

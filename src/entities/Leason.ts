@@ -11,8 +11,8 @@ import {
 import { Video } from './Video'
 import { Subject } from './Subject'
 
-@Entity()
-export class Room {
+@Entity('leason')
+export class Leason {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -22,7 +22,7 @@ export class Room {
   @Column({ nullable: true })
   description: string
 
-  @OneToMany(() => Video, (video) => video.room)
+  @OneToMany(() => Video, (video) => video.leason, { eager: true })
   videos: Video[]
 
   @ManyToMany(() => Subject, (subject) => subject.rooms, { eager: true })

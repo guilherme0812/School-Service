@@ -1,13 +1,15 @@
 import { Request, Response, Router } from 'express'
-import { RoomServices } from '../services/RoomServices'
+import { LeasonServices } from '../services/LeasonServices'
+import { CreateLeasonDto } from '../dto/leason/createLeasonDto'
+import { validate } from 'class-validator'
 
-const roomController = Router()
+const leasonController = Router()
 
-const roomServices = new RoomServices()
+const leasonServices = new LeasonServices()
 
-roomController.get('/rooms', async (req: Request, res: Response) => {
+leasonController.get('/leasons', async (req: Request, res: Response) => {
   try {
-    const rooms = await roomServices.findAll()
+    const rooms = await leasonServices.findAll()
 
     return res.json(rooms)
   } catch (error) {
@@ -16,7 +18,7 @@ roomController.get('/rooms', async (req: Request, res: Response) => {
   }
 })
 
-roomController.get('/room/:id', async (req: Request, res: Response) => {
+leasonController.get('/leason/:id', async (req: Request, res: Response) => {
   const { id } = req.params
   if (!id) {
     return res
@@ -25,7 +27,7 @@ roomController.get('/room/:id', async (req: Request, res: Response) => {
   }
 
   try {
-    const room = await roomServices.findOneOrFail({ id })
+    const room = await leasonServices.findOneOrFail({ id })
 
     return res.json(room)
   } catch (error) {
@@ -34,11 +36,20 @@ roomController.get('/room/:id', async (req: Request, res: Response) => {
   }
 })
 
-roomController.post('/room', async (req: Request, res: Response) => {
+leasonController.post('/leason', async (req: Request, res: Response) => {
   try {
     const body = req.body
-    const room = await roomServices.create(body)
+    const createLeasonDto = new CreateLeasonDto()
+    createLeasonDto.name = body.name
+    createLeasonDto.description = body.description
 
+    const errors = await validate(createLeasonDto)
+    if (errors.length > 0) {
+      res.status(400).json({ errors })
+      return
+    }
+
+    const room = await leasonServices.create(body)
     return res.status(201).json(room)
   } catch (error) {
     console.log(error)
@@ -46,7 +57,7 @@ roomController.post('/room', async (req: Request, res: Response) => {
   }
 })
 
-roomController.put('/room/:id', async (req: Request, res: Response) => {
+leasonController.put('/leason/:id', async (req: Request, res: Response) => {
   const { id } = req.params
   if (!id) {
     return res
@@ -55,14 +66,14 @@ roomController.put('/room/:id', async (req: Request, res: Response) => {
   }
 
   try {
-    const room = await roomServices.update(id, req.body)
+    const room = await leasonServices.update(id, req.body)
     return res.status(203).json(room)
   } catch (error) {
     return res.status(404).json({ message: 'Erro na requisição' })
   }
 })
 
-roomController.delete('/room/:id', async (req: Request, res: Response) => {
+leasonController.delete('/leason/:id', async (req: Request, res: Response) => {
   const { id } = req.params
 
   if (!id) {
@@ -70,11 +81,11 @@ roomController.delete('/room/:id', async (req: Request, res: Response) => {
   }
 
   try {
-    const response = await roomServices.delete(id)
+    const response = await leasonServices.delete(id)
     return res.status(203).json(response)
   } catch (error) {
     return res.status(400).json({ message: 'Erro na requisição' })
   }
 })
 
-export default roomController
+export default leasonController

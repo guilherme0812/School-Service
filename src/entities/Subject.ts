@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { Room } from './Room'
+import { Leason } from './Leason'
 
 @Entity()
 export class Subject {
@@ -18,9 +18,9 @@ export class Subject {
   @Column()
   name: string
 
-  @ManyToMany(() => Room, (room) => room.subjects)
+  @ManyToMany(() => Leason, (leason) => leason.subjects)
   @JoinTable()
-  rooms: Room[]
+  rooms: Leason[]
 
   @CreateDateColumn()
   createAt: string
