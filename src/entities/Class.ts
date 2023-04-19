@@ -10,7 +10,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 import { Studant } from './Studant'
-import { Leason } from './Leason'
 import { Subject } from './Subject'
 
 @Entity()
