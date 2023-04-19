@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 import { Leason } from './Leason'
+import { Class } from './Class'
 
 @Entity()
 export class Subject {
@@ -18,9 +19,15 @@ export class Subject {
   @Column()
   name: string
 
-  @ManyToMany(() => Leason, (leason) => leason.subjects)
+  @Column()
+  description: string
+
+  @ManyToMany(() => Leason, (leason) => leason.subjects, { eager: true })
   @JoinTable()
-  rooms: Leason[]
+  leasons: Leason[]
+
+  @ManyToMany(() => Class, (classe) => classe.subjects)
+  classes: Class[]
 
   @CreateDateColumn()
   createAt: string

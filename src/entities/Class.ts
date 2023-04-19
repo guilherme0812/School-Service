@@ -3,19 +3,30 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  //   JoinTable,
-  //   ManyToMany,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { Studant } from './Studant'
+import { Leason } from './Leason'
+import { Subject } from './Subject'
 
 @Entity()
 export class Class {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
   name: string
+
+  @OneToMany(() => Studant, (studant) => studant.class)
+  studants: Studant[]
+
+  @ManyToMany(() => Subject, (subject) => subject.classes, { eager: true })
+  @JoinTable()
+  subjects: Subject[]
 
   @CreateDateColumn({ name: 'create_at' })
   createAt: string

@@ -25,7 +25,7 @@ export class Leason {
   @OneToMany(() => Video, (video) => video.leason, { eager: true })
   videos: Video[]
 
-  @ManyToMany(() => Subject, (subject) => subject.rooms, { eager: true })
+  @ManyToMany(() => Subject, (subject) => subject.leasons)
   subjects: Subject[]
 
   @CreateDateColumn({ name: 'create_at' })
